@@ -1,52 +1,39 @@
 #include <iostream>
 
-// #include "simlib.h"
+#include "simlib.h"
 #include "parser.h"
 
 using namespace std;
 
-// double STEP = 0.2;
+struct SEIR {
+    Integrator S, E, I, R;
+    SEIR(float beta, float omega, float nu, int N):
+        S(-beta*_S*_I/N, SUSCEPTIBLE), // dS(t)dt=−βS(t)I(t)N
+        E(beta*_S*_I/N - omega*_E, EXPOSED), // dE(t)dt=βS(t)I(t)N−δE(t)
+        I(omega*_E - nu*_I, INFECTED), // dI(t)dt=δE(t)−νI(t)
+        R(nu*_I, RECOVERED) {} // dR(t)dt=vI(t)
+};
 
-// β, δ, ν
-// float beta, omega, nu;
+SEIR SEIR(0.8, 0.09, 0.12, 1000);
 
-// int S = 999 E = 1, I = 0, R = 0; 
+// Output
+void Sample() { 
+    Print("%6.2f %g %g %g %g\n", T.Value(), SEIR.S.Value(), SEIR.E.Value(), SEIR.I.Value(), SEIR.R.Value());
+}
 
-// struct SEIR {
-//     Integrator _S, _E, _I, _R;
-//     SEIR(float beta, float omega, float nu, int N):
-//         _S(-beta*_S*_I/N, 999), // dS(t)dt=−βS(t)I(t)N
-//         _E(beta*_S*_I/N - omega*_E, 1), // dE(t)dt=βS(t)I(t)N−δE(t)
-//         _I(omega*_E - nu*_I, 0), // dI(t)dt=δE(t)−νI(t)
-//         _R(nu*_I, 0) {} // dR(t)dt=vI(t)
-// };
-
-// SEIR SEIR(0.8, 0.09, 0.12, 1000);
-
-// // Output
-// void Sample() { 
-//     Print("%6.2f %g %g %g %g\n", T.Value(), SEIR._S.Value(), SEIR._E.Value(), SEIR._I.Value(), SEIR._R.Value());
-// }
-
-// Sampler Sampler(Sample, STEP);
+Sampler Sampler(Sample, STEP);
 
 int main(int argc, char **argv) {
     cout << "SEIR model\n";   
 
-    // int S = DEFAULT_SUSCEPTIBLE;
-    // E = DEFAULT_EXPOSED;
-    // I = DEFAULT_INFECTED;
-    // R = DEFAULT_RECOVERED;
-    // D = DEFAULT_DEAD; 
-
+    // Parse input 
     if (parse(argc, argv) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
 
-    // cout << S;
-    
+    cout << "Simulating...";
 
-    // Init(0,100); // up to 100 days    
+    Init(SSTART_TIME, SEND_TIME); // up to 100 days    
 
-    // Run();
+    Run();
 }
