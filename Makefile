@@ -1,14 +1,19 @@
 CC=g++
 DEPENDECIES=-I/usr/local/include
 SIMLIB=-L/usr/local/lib64 -lsimlib -lm 
-SRC=*.c
+SRC=*.cc
 OBJ=model
 
-all:
-	$(CC) $(DEPENDENCIES) model.cc $(SIMLIB) -o $(OBJ)
+mac:
+	$(CC) -o $(OBJ) $(SRC)
 
-parser:
-	$(CC) parser.cc -o parser
+# all: parser
+# 	$(CC) $(DEPENDENCIES) $(SIMLIB) -o $(OBJ) $(SRC)
+
+# parser:
+# 	$(CC) parser.cc -o $(OBJ)
 
 clean:
 	rm $(OBJ) 
+
+.PHONY: mac clean
