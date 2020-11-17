@@ -1,6 +1,6 @@
 #include <iostream>
 
-// #include "simlib.h"
+#include "simlib.h"
 #include "parser.h"
 
 using namespace std;
