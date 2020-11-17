@@ -7,7 +7,7 @@ OBJ=model
 # mac:
 # 	$(CC) -o $(OBJ) $(SRC)
 
-all: parser
+all: 
 	$(CC) $(DEPENDENCIES) $(SIMLIB) -o $(OBJ) $(SRC)
 
 parser:

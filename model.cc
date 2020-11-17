@@ -8,10 +8,10 @@ using namespace std;
 struct SEIR {
     Integrator S, E, I, R;
     SEIR(float beta, float omega, float nu, int N):
-        S(-beta*_S*_I/N, SUSCEPTIBLE), // dS(t)dt=−βS(t)I(t)N
-        E(beta*_S*_I/N - omega*_E, EXPOSED), // dE(t)dt=βS(t)I(t)N−δE(t)
-        I(omega*_E - nu*_I, INFECTED), // dI(t)dt=δE(t)−νI(t)
-        R(nu*_I, RECOVERED) {} // dR(t)dt=vI(t)
+        S(-beta * S * I/N, SUSCEPTIBLE), // dS(t)dt=−βS(t)I(t)N
+        E(beta * S * I/N - omega * E, EXPOSED), // dE(t)dt=βS(t)I(t)N−δE(t)
+        I(omega * E - nu * I, INFECTED), // dI(t)dt=δE(t)−νI(t)
+        R(nu * I, RECOVERED) {} // dR(t)dt=vI(t)
 };
 
 SEIR SEIR(0.8, 0.09, 0.12, 1000);
