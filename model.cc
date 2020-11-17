@@ -1,20 +1,20 @@
 #include <iostream>
 
-#include "simlib.h"
+// #include "simlib.h"
 #include "parser.h"
 
 using namespace std;
 
 struct SEIR {
     Integrator S, E, I, R;
-    SEIR(float beta, float omega, float nu, int N):
-        S(-beta * S * I/N, SUSCEPTIBLE), // dS(t)dt=−βS(t)I(t)N
-        E(beta * S * I/N - omega * E, EXPOSED), // dE(t)dt=βS(t)I(t)N−δE(t)
+    SEIR(float beta, float omega, float nu, int n):
+        S(-beta * S * I/n, SUSCEPTIBLE), // dS(t)dt=−βS(t)I(t)N
+        E(beta * S * I/n - omega * E, EXPOSED), // dE(t)dt=βS(t)I(t)N−δE(t)
         I(omega * E - nu * I, INFECTED), // dI(t)dt=δE(t)−νI(t)
         R(nu * I, RECOVERED) {} // dR(t)dt=vI(t)
 };
 
-SEIR SEIR(0.8, 0.09, 0.12, 1000);
+SEIR SEIR(0.8, 0.09, 0.12, POPULATION);
 
 // Output
 void Sample() { 
@@ -30,8 +30,6 @@ int main(int argc, char **argv) {
     if (parse(argc, argv) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
-
-    cout << "Simulating...";
 
     Init(SSTART_TIME, SEND_TIME); // up to 100 days    
 

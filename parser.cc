@@ -13,34 +13,40 @@ int EXPOSED = DEXPOSED;
 int INFECTED = DINFECTED;
 int RECOVERED = DRECOVERED; 
 int DEAD = DDEAD;
+int POPULATION = N;
 
 void help() {
     cout << "Example: ./model --s INT [--e INT] --i INT --r INT [--d INT]\n";
-    cout << "Argumets: \n" <<
+    cout << "Arguments: \n" <<
             "\t-s or --s, or --susceptible INT\n" <<
             "\t-e or --e, or --exposed INT\n" <<
             "\t-i or --i, or --infected INT\n" <<
             "\t-r or --r, or --recovered INT\n" <<
             "\t-d or --d, or --dead INT\n";
+    // cout << "Possible extension: \n" <<
+    //         "\t-n or --n, or --population INT\n";
+    
 }
 
 int parse(int argc, char **argv) {
 
     int opt;
-    static const char *sOptions = "s:e:i:r:d";
+    static const char *sOptions = "s:e:i:r:d"; // n
     static struct option lOptions[] = {
       {"susceptible",   required_argument, 0, 's'},
       {"exposed",       required_argument, 0, 'e'},
       {"infected",      required_argument, 0, 'i'},
       {"recovered",     required_argument, 0, 'r'},
       {"dead",          required_argument, 0, 'd'},
-      {nullptr, 0, nullptr, 0} // Avoid segmenation fault
+    //   {"population",    required_argument, 0, 'n'},
+      {nullptr, 0, nullptr, 0}, // Avoid segmenation fault
     };
 
-    while((opt = getopt_long(argc, argv, sOptions, lOptions, nullptr)) != -1) {
+    while((opt = getopt_long(argc, argv, sOptions, lOptions, nullptr)) != EOF) {
+        // printf("%c\n", opt);
         switch(opt) {
             case 0:
-                printf("0");
+
                 break;
             case 's':
                 SUSCEPTIBLE = atoi(optarg);
@@ -65,6 +71,10 @@ int parse(int argc, char **argv) {
                 break;
             case 'i':
 
+                if(optarg == nullptr) {
+                    help();
+                    return EXIT_FAILURE;
+                }
                 INFECTED = atoi(optarg);
                 
                 // Handling invalid argument
@@ -96,7 +106,23 @@ int parse(int argc, char **argv) {
                 }
                 
                 break;
+
+            // case 'n':
+
+            //     POPULATION = atoi(optarg);
+
+            //     // Handling invalid argument
+            //     if(POPULATION == 0) {
+            //         help();
+            //         return EXIT_FAILURE;
+            //     }
+                
+            //     break;
+
+
             case '?':
+                break;
+
             default:
                 help();
                 return EXIT_FAILURE;
@@ -107,6 +133,8 @@ int parse(int argc, char **argv) {
         help();
         return EXIT_FAILURE;
     }
+
+    // cout << SUSCEPTIBLE << ' ' << EXPOSED << ' ' << INFECTED << ' ' << RECOVERED << ' ' << DEAD << ' ' << POPULATION;
 
     return EXIT_SUCCESS;
 }

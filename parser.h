@@ -18,6 +18,7 @@
 #define SSTART_TIME 0
 #define SEND_TIME 100
 
+#define N 1000
 #define STEP 0.2
 
 // SEIR && SIR && SIRD
@@ -26,6 +27,8 @@ extern int EXPOSED; // E - exposed
 extern int INFECTED; // I - infected
 extern int RECOVERED; // R - recovered (removed)
 extern int DEAD; // D - dead
+
+extern int POPULATION;
 
 /**
  * @brief Shows the help information once the parser error occurs
