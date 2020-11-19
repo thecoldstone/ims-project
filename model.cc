@@ -1,37 +1,86 @@
 #include <iostream>
-
-#include "simlib.h"
-#include "parser.h"
+#include "model.h"
+#include "default.h"
 
 using namespace std;
 
-struct SEIR {
-    Integrator S, E, I, R;
-    SEIR(float beta, float omega, float nu, int n):
-        S(-beta * S * I/n, SUSCEPTIBLE), // dS(t)dt=−βS(t)I(t)N
-        E(beta * S * I/n - omega * E, EXPOSED), // dE(t)dt=βS(t)I(t)N−δE(t)
-        I(omega * E - nu * I, INFECTED), // dI(t)dt=δE(t)−νI(t)
-        R(nu * I, RECOVERED) {} // dR(t)dt=vI(t)
-};
-
-SEIR SEIR(0.8, 0.09, 0.12, POPULATION);
-
-// Output
-void Sample() { 
-    Print("%6.2f %g %g %g %g\n", T.Value(), SEIR.S.Value(), SEIR.E.Value(), SEIR.I.Value(), SEIR.R.Value());
+Model::Model() {
+    SUSCEPTIBLE = DSUSCEPTIBLE;
+    EXPOSED = DEXPOSED;
+    INFECTED = DINFECTED;
+    RECOVERED = DRECOVERED;
+    POPULATION = DPOPULATION;
 }
 
-Sampler Sampler(Sample, STEP);
+Model::Model(int S, int E, int I, int R) {
+    SUSCEPTIBLE = S;
+    EXPOSED = E;
+    INFECTED = I;
+    RECOVERED = R;
+}
 
-int main(int argc, char **argv) {
-    cout << "SEIR model\n";   
+Model::Model(int S, int I, int R) {
+    // TODO
+}
 
-    // Parse input 
-    if (parse(argc, argv) == EXIT_FAILURE) {
-        return EXIT_FAILURE;
+Model::Model(int S, int E, int I, int R, int D) {
+    // TODO
+}
+
+void Model::_print() {
+    cout << "S = " << SUSCEPTIBLE << "\n";
+    cout << "E = " << EXPOSED << "\n";
+    cout << "I = " << INFECTED << "\n";
+    cout << "R = " << RECOVERED << "\n";
+    cout << "P = " << POPULATION << "\n";
+}
+
+void Model::_S(int s) {
+    if (s > 0) {
+        SUSCEPTIBLE = s;
     }
+}
 
-    Init(SSTART_TIME, SEND_TIME); // up to 100 days    
+int Model::S() {
+    return SUSCEPTIBLE;
+}
 
-    Run();
+void Model::_E(int e) {
+    if (e > 0) {
+        EXPOSED = e;
+    }
+}
+
+int Model::E() {
+    return EXPOSED;
+}
+
+void Model::_I(int i) {
+    if (i > 0) {
+        INFECTED = i;
+    }
+}
+
+int Model::I() {
+    return INFECTED;
+}
+
+void Model::_R(int r) {
+    if (r > 0) {
+        RECOVERED = r;
+    }
+}
+
+int Model::R() {
+    return RECOVERED;
+}
+
+void Model::_N(int n) {
+    if (n > 0) {
+        POPULATION = n;
+    }
+}
+
+int Model::N(){
+    return POPULATION;
 }

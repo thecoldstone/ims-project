@@ -4,16 +4,10 @@
 #include <stdlib.h>
 #include <getopt.h>
 
+#include "model.h"
 #include "parser.h"
 
 using namespace std;
-
-int SUSCEPTIBLE = DSUSCEPTIBLE;
-int EXPOSED = DEXPOSED;
-int INFECTED = DINFECTED;
-int RECOVERED = DRECOVERED; 
-int DEAD = DDEAD;
-int POPULATION = N;
 
 void help() {
     cout << "Example: ./model --s INT [--e INT] --i INT --r INT [--d INT]\n";
@@ -23,24 +17,25 @@ void help() {
             "\t-i or --i, or --infected INT\n" <<
             "\t-r or --r, or --recovered INT\n" <<
             "\t-d or --d, or --dead INT\n";
-    // cout << "Possible extension: \n" <<
-    //         "\t-n or --n, or --population INT\n";
-    
+    cout << "Possible extension: \n" <<
+            "\t-n or --n, or --population INT\n";    
 }
 
-int parse(int argc, char **argv) {
+int Model::parse(int argc, char **argv) {
 
-    int opt;
-    static const char *sOptions = "s:e:i:r:d"; // n
+    int opt, tmp;
+    static const char *sOptions = "s:e:i:r:d:n:"; // n
     static struct option lOptions[] = {
       {"susceptible",   required_argument, 0, 's'},
       {"exposed",       required_argument, 0, 'e'},
       {"infected",      required_argument, 0, 'i'},
       {"recovered",     required_argument, 0, 'r'},
       {"dead",          required_argument, 0, 'd'},
-    //   {"population",    required_argument, 0, 'n'},
+      {"population",    required_argument, 0, 'n'},
       {nullptr, 0, nullptr, 0}, // Avoid segmenation fault
     };
+
+    cout << "[+] Parser...\n";
 
     while((opt = getopt_long(argc, argv, sOptions, lOptions, nullptr)) != EOF) {
         // printf("%c\n", opt);
@@ -49,75 +44,82 @@ int parse(int argc, char **argv) {
 
                 break;
             case 's':
-                SUSCEPTIBLE = atoi(optarg);
+                tmp = atoi(optarg);
                 
                 // Handling invalid argument
-                if(SUSCEPTIBLE == 0) {
+                if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
+
+               SUSCEPTIBLE = tmp;
 
                 break;
             case 'e':
                 
-                EXPOSED = atoi(optarg);
+                tmp = atoi(optarg);
                 
                 // Handling invalid argument
-                if(EXPOSED == 0) {
+                if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
+
+                EXPOSED = tmp;
 
                 break;
             case 'i':
 
-                if(optarg == nullptr) {
+                tmp = atoi(optarg);
+
+                if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
-                INFECTED = atoi(optarg);
-                
-                // Handling invalid argument
-                if(INFECTED == 0) {
-                    help();
-                    return EXIT_FAILURE;
-                }
+
+                INFECTED = tmp;
                 
                 break;
             case 'r':
                 
-                RECOVERED = atoi(optarg);
+                tmp = atoi(optarg);
                 
                 // Handling invalid argument
-                if(RECOVERED == 0) {
+                if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
+
+                RECOVERED = tmp;
                 
                 break;
             case 'd':
                 
-                DEAD = atoi(optarg);
+                tmp = atoi(optarg);
                 
                 // Handling invalid argument
-                if(DEAD == 0) {
+                if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
+
+                // DEAD = tmp;
                 
                 break;
 
-            // case 'n':
+            case 'n':
 
-            //     POPULATION = atoi(optarg);
+                tmp = atoi(optarg);
 
-            //     // Handling invalid argument
-            //     if(POPULATION == 0) {
-            //         help();
-            //         return EXIT_FAILURE;
-            //     }
+                // Handling invalid argument
+                if(tmp == -1) {
+                    help();
+                    return EXIT_FAILURE;
+                }
+
+                POPULATION = tmp;
                 
-            //     break;
+                break;
 
 
             case '?':
@@ -129,14 +131,13 @@ int parse(int argc, char **argv) {
         }
     }
 
-    if (optind <= 1) {
+    if (optind < 1) {
         help();
         return EXIT_FAILURE;
     }
 
-    // cout << SUSCEPTIBLE << ' ' << EXPOSED << ' ' << INFECTED << ' ' << RECOVERED << ' ' << DEAD << ' ' << POPULATION;
-
     return EXIT_SUCCESS;
+    // cout << SUSCEPTIBLE << ' ' << EXPOSED << ' ' << INFECTED << ' ' << RECOVERED << ' ' << DEAD << ' ' << POPULATION;
 }
 
 // int main(int argc, char **argv) {
