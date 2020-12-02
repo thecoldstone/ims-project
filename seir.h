@@ -15,10 +15,8 @@ class SEIR  {
             R(nu * I) {} 
 
             void setIntegrators(int _S, int _E, int _I, int _R);
-            void setParameters(float _beta, float _delta, float _nu, int _n);
-            void print();
-            double _S() { return S.Value(); }
-            //TODO add others integrators
+            void setParameters(int _n, int lockdown);
+            void sample();
 };
 
 #endif

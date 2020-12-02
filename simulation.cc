@@ -1,4 +1,5 @@
 #include <iostream>
+#include "default.h"
 #include "simulation.h"
 
 using namespace std;
@@ -7,19 +8,28 @@ using namespace std;
 
 #include "simlib.h"
 
-// Default values
-SEIR seir(0.9, 0.08, 0.125, 1000);
+SEIR seir(DBETA, DDELTA, DDNU, DPOPULATION);
 
-void Sample() { 
-    Print("%6.2f %g %g %g %g\n", T.Value(), seir._S(), seir.E.Value(), seir.I.Value(), seir.R.Value());
-}
+void Sample(){ seir.sample(); }
 
 Sampler Sampler(Sample, STEP);
 
 void Model::simulate() {
     cout << "[+] Simulation...\n";
     seir.setIntegrators(SUSCEPTIBLE, EXPOSED, INFECTED, RECOVERED);
-    seir.setParameters(0.9, 0.08, 0.125, POPULATION);
-    Init(0, 100);
-    Run();
+    if (LOCKDOWN == 1) {
+        cout << "[+] Lockdown...\n";
+    } else {
+        cout << "No Lockdown...\n";
+    }
+    // Initialize output file to store results
+    SetOutput("lorenz.dat");
+    // 1 experiment
+    for (int i = 0; i < 1; i++) {
+        Print("\n");
+        seir.setParameters(POPULATION, LOCKDOWN);
+        Print("# Time S E I R \n");
+        Init(0, 20);
+        Run();
+    }
 }

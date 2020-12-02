@@ -34,6 +34,7 @@ class Model{
         int INFECTED;
         int RECOVERED;
         int POPULATION;
+        int LOCKDOWN;
 };
     
 #endif

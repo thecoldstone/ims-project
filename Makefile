@@ -7,14 +7,15 @@ OBJ=main
 # main:
 # 	$(CC) $(DEPENDENCIES) $(SIMLIB)  main.cc -o $(OBJ)
 
-mac:
-	$(CC) -o $(OBJ) main.cc model.cc
+# mac:
+# 	$(CC) -o $(OBJ) main.cc model.cc
 
 all: 
 	$(CC) $(DEPENDENCIES) $(SIMLIB) -o $(OBJ) $(SRC)
 
+PARSER=parser.cc model.cc
 parser:
-	$(CC) parser.cc -o $(OBJ)
+	$(CC) $(PARSER) -o $(OBJ)
 
 clean:
 	rm $(OBJ) 
