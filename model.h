@@ -5,8 +5,8 @@
  * @date 17.11.2020
  */
 
-#ifndef _SEIR_H
-#define _SEIR_H
+#ifndef _MODEL_H
+#define _MODEL_H
 
 class Model{
     public:
@@ -27,7 +27,7 @@ class Model{
         int N();
         int parse(int, char**);
         void simulate();
-        
+
     private:
         int SUSCEPTIBLE;
         int EXPOSED;
