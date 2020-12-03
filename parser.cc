@@ -15,33 +15,31 @@ void help() {
             "\t-s or --s, or --susceptible INT\n" <<
             "\t-e or --e, or --exposed INT\n" <<
             "\t-i or --i, or --infected INT\n" <<
-            "\t-r or --r, or --recovered INT\n" <<
-            "\t-d or --d, or --dead INT\n";
+            "\t-r or --r, or --recovered INT\n";
     cout << "Possible extension: \n" <<
-            "\t-n or --n, or --population INT\n";    
+            "\t-n or --n, or --population INT\n" <<
+            "\t-l or --l, or --lockdown\n";   
 }
 
 int Model::parse(int argc, char **argv) {
 
     int opt, tmp;
-    static const char *sOptions = "s:e:i:r:d:n:"; // n
+    static const char *sOptions = "s:e:i:r:n:l";
     static struct option lOptions[] = {
       {"susceptible",   required_argument, 0, 's'},
       {"exposed",       required_argument, 0, 'e'},
       {"infected",      required_argument, 0, 'i'},
       {"recovered",     required_argument, 0, 'r'},
-      {"dead",          required_argument, 0, 'd'},
       {"population",    required_argument, 0, 'n'},
+      {"lockdown",      no_argument,       0, 'l'},
       {nullptr, 0, nullptr, 0}, // Avoid segmenation fault
     };
 
-    cout << "[+] Parser...\n";
+    cout << "[+] Parse input...\n";
 
     while((opt = getopt_long(argc, argv, sOptions, lOptions, nullptr)) != EOF) {
-        // printf("%c\n", opt);
         switch(opt) {
             case 0:
-
                 break;
             case 's':
                 tmp = atoi(optarg);
@@ -52,21 +50,18 @@ int Model::parse(int argc, char **argv) {
                     return EXIT_FAILURE;
                 }
 
-               SUSCEPTIBLE = tmp;
-
+                SUSCEPTIBLE = tmp;
                 break;
             case 'e':
                 
                 tmp = atoi(optarg);
                 
-                // Handling invalid argument
                 if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
 
                 EXPOSED = tmp;
-
                 break;
             case 'i':
 
@@ -78,53 +73,35 @@ int Model::parse(int argc, char **argv) {
                 }
 
                 INFECTED = tmp;
-                
                 break;
             case 'r':
                 
                 tmp = atoi(optarg);
                 
-                // Handling invalid argument
                 if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
 
                 RECOVERED = tmp;
-                
                 break;
-            case 'd':
-                
-                tmp = atoi(optarg);
-                
-                // Handling invalid argument
-                if(tmp == -1) {
-                    help();
-                    return EXIT_FAILURE;
-                }
-
-                // DEAD = tmp;
-                
-                break;
-
             case 'n':
 
                 tmp = atoi(optarg);
 
-                // Handling invalid argument
                 if(tmp == -1) {
                     help();
                     return EXIT_FAILURE;
                 }
 
                 POPULATION = tmp;
-                
                 break;
+            case 'l':
 
-
+                LOCKDOWN = 1;
+                break;
             case '?':
                 break;
-
             default:
                 help();
                 return EXIT_FAILURE;
@@ -137,9 +114,10 @@ int Model::parse(int argc, char **argv) {
     }
 
     return EXIT_SUCCESS;
-    // cout << SUSCEPTIBLE << ' ' << EXPOSED << ' ' << INFECTED << ' ' << RECOVERED << ' ' << DEAD << ' ' << POPULATION;
 }
 
 // int main(int argc, char **argv) {
-//     parse(argc, argv);
+//     Model model = Model();
+//     model.parse(argc, argv);
+//     model._print();
 // }

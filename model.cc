@@ -10,6 +10,7 @@ Model::Model() {
     INFECTED = DINFECTED;
     RECOVERED = DRECOVERED;
     POPULATION = DPOPULATION;
+    LOCKDOWN = DLOCKDOWN;
 }
 
 Model::Model(int S, int E, int I, int R) {

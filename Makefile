@@ -4,14 +4,18 @@ SIMLIB=-L/usr/local/lib64 -lsimlib -lm
 SRC=*.cc
 OBJ=main
 
-mac:
-	$(CC) -o $(OBJ) $(SRC)
+# main:
+# 	$(CC) $(DEPENDENCIES) $(SIMLIB)  main.cc -o $(OBJ)
 
-# all: 
-# 	$(CC) $(DEPENDENCIES) $(SIMLIB) -o $(OBJ) $(SRC)
+# mac:
+# 	$(CC) -o $(OBJ) main.cc model.cc
 
+all: 
+	$(CC) $(DEPENDENCIES) $(SIMLIB) -o $(OBJ) $(SRC)
+
+PARSER=parser.cc model.cc
 parser:
-	$(CC) parser.cc -o $(OBJ)
+	$(CC) $(PARSER) -o $(OBJ)
 
 clean:
 	rm $(OBJ) 
