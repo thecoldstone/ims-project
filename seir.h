@@ -9,13 +9,13 @@ class SEIR  {
         Integrator S, E, I, R;
         SEIR(float _beta, float _delta, float _nu, int _n):
             beta(_beta), delta(_delta), nu(_nu), n(_n),
-            S(-beta * S * I/n),
-            E(beta * S * I/n - delta * E),
+            S((-beta * S * I)/n),
+            E((beta * S * I)/n - delta * E),
             I(delta * E - nu * I),
             R(nu * I) {} 
 
             void setIntegrators(int _S, int _E, int _I, int _R);
-            void setParameters(int _n, int lockdown);
+            void setParameters(float _beta, float _delta, float _nu, int _n, int lockdown, int bar, int school);
             void sample();
 };
 

@@ -11,9 +11,6 @@
 class Model{
     public:
         Model(); // SEIR model
-        Model(int S, int I, int R); // SIR model
-        Model(int S, int E, int I, int R); // SEIR model
-        Model(int S, int E, int I, int R, int D); // SEIRD model
         void _print();
         void _S(int);
         int S();
@@ -34,7 +31,14 @@ class Model{
         int INFECTED;
         int RECOVERED;
         int POPULATION;
+
+        float BETA;
+        float DELTA;
+        float NU;
+        
         int LOCKDOWN;
+        int BAR;
+        int SCHOOL;
 };
     
 #endif

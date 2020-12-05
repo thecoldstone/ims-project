@@ -10,22 +10,14 @@ Model::Model() {
     INFECTED = DINFECTED;
     RECOVERED = DRECOVERED;
     POPULATION = DPOPULATION;
+
+    BETA = DBETA;
+    DELTA = DDELTA;
+    NU = DNU;
+
     LOCKDOWN = DLOCKDOWN;
-}
-
-Model::Model(int S, int E, int I, int R) {
-    SUSCEPTIBLE = S;
-    EXPOSED = E;
-    INFECTED = I;
-    RECOVERED = R;
-}
-
-Model::Model(int S, int I, int R) {
-    // TODO
-}
-
-Model::Model(int S, int E, int I, int R, int D) {
-    // TODO
+    BAR = DBAR;
+    SCHOOL = DSCHOOL;
 }
 
 void Model::_print() {
@@ -34,6 +26,15 @@ void Model::_print() {
     cout << "I = " << INFECTED << "\n";
     cout << "R = " << RECOVERED << "\n";
     cout << "P = " << POPULATION << "\n";
+
+    cout << "BETA = " << BETA << "\n";
+    cout << "DELTA = " << DELTA << "\n";
+    cout << "NU = " << NU << "\n";
+
+
+    cout << "L = " << LOCKDOWN << "\n";
+    cout << "BAR = " << BAR << "\n";
+    cout << "SCHOOL = " << SCHOOL << "\n";
 }
 
 void Model::_S(int s) {
