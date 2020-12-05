@@ -23,7 +23,7 @@ void Model::simulate() {
         cout << "No Lockdown...\n";
     }
     // Initialize output file to store results
-    SetOutput("seir.dat");
+    // SetOutput("seir.dat"); // Makefile takes care of the output
     // 1 experiment
     for (int i = 0; i < 1; i++) {
         Print("\n");
