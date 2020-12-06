@@ -17,6 +17,7 @@ class SEIR  {
             void setIntegrators(int _S, int _E, int _I, int _R);
             void setParameters(float _beta, float _delta, float _nu, int _n, int lockdown, int bar, int school);
             void sample();
+            void printParameters();
 };
 
 #endif

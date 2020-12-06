@@ -22,12 +22,12 @@ void Model::simulate() {
     } else {
         cout << "No Lockdown...\n";
     }
-    // Initialize output file to store results
-    // SetOutput("seir.dat"); // Makefile takes care of the output
+
     // 1 experiment
     for (int i = 0; i < 1; i++) {
         Print("\n");
         seir.setParameters(BETA, DELTA, NU, POPULATION, LOCKDOWN, BAR, SCHOOL);
+        seir.printParameters();
         Print("# Time S E I R \n");
         Init(0, 100);
         Run();

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <math.h>
 #include "seir.h"
 
 using namespace std;
@@ -24,13 +23,9 @@ void SEIR::setParameters(float _beta, float _delta, float _nu, int _n, int lockd
     }
     
     beta = tmpVal;    
-    // cout << "Beta = " << beta.Value() << "\n";
-
     delta = _delta;
     nu = _nu;
-
     n = _n;
-    // cout << "Population =" << n.Value() << "\n";
 }
 
 void SEIR::sample() {
@@ -40,4 +35,13 @@ void SEIR::sample() {
         E.Value(), 
         I.Value(), 
         R.Value());
+}
+
+void SEIR::printParameters() {
+    Print("Parameters : %g %g %g %g\n",
+        beta.Value(),
+        delta.Value(),
+        nu.Value(),
+        n.Value()
+        );
 }
