@@ -8,7 +8,7 @@ using namespace std;
 
 #include "simlib.h"
 
-SEIR seir(DBETA, DDELTA, DDNU, DPOPULATION);
+SEIR seir(DBETA, DDELTA, DNU, DPOPULATION);
 
 void Sample(){ seir.sample(); }
 
@@ -22,14 +22,14 @@ void Model::simulate() {
     } else {
         cout << "No Lockdown...\n";
     }
-    // Initialize output file to store results
-    SetOutput("lorenz.dat");
+
     // 1 experiment
     for (int i = 0; i < 1; i++) {
         Print("\n");
-        seir.setParameters(POPULATION, LOCKDOWN);
+        seir.setParameters(BETA, DELTA, NU, POPULATION, LOCKDOWN, BAR, SCHOOL);
+        seir.printParameters();
         Print("# Time S E I R \n");
-        Init(0, 20);
+        Init(0, 100);
         Run();
     }
 }

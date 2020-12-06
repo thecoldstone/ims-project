@@ -7,10 +7,13 @@
 #define DINFECTED 0
 #define DRECOVERED 0
 #define DPOPULATION 1000
-#define DLOCKDOWN 0
 
 #define DBETA 0.9
 #define DDELTA 0.08
-#define DDNU 0.125
+#define DNU 0.125
+
+#define DLOCKDOWN 0
+#define DBAR 0
+#define DSCHOOL 0
 
 #endif
