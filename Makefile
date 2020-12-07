@@ -8,7 +8,7 @@ all:
 	$(CC) -o $(OBJ) $(SRC) -lsimlib -lm
 
 model:
-	$(CC) $(DEPENDENCIES) $(SIMLIB) -o $(OBJ) $(SRC)
+	$(CC) -o $(OBJ) $(SRC) -lsimlib -lm
 	
 	# Default beta, delta, nu values are 0.9, 0.08, 0.125 respectively. It's considered as the worst case scenario.
 
@@ -44,7 +44,7 @@ model:
 	./main --beta=50 --delta=40 --nu=75 --school --o=thirdcaseschool.dat
 
 lockdown:
-	$(CC) $(DEPENDENCIES) $(SIMLIB) -o $(OBJ) $(SRC)
+	$(CC) -o $(OBJ) $(SRC) -lsimlib -lm
 	# Default beta, delta, nu values are 0.9, 0.08, 0.125 respectively. It's considered as the worst case scenario.
 	
 	##########################################################

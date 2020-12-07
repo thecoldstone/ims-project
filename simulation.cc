@@ -16,7 +16,7 @@ void Sample(){ seir.sample(); }
 Sampler Sampler(Sample, STEP);
 
 void Model::simulate() {
-
+    
     SetOutput(OUTPUTFILE);
     seir.setIntegrators(SUSCEPTIBLE, EXPOSED, INFECTED, RECOVERED);
 
