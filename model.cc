@@ -35,6 +35,8 @@ void Model::_print() {
     cout << "L = " << LOCKDOWN << "\n";
     cout << "BAR = " << BAR << "\n";
     cout << "SCHOOL = " << SCHOOL << "\n";
+
+    cout << "Output file = " << OUTPUTFILE << "\n";
 }
 
 void Model::_S(int s) {
