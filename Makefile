@@ -18,11 +18,11 @@ model:
 	# everything is open (school and bar)
 	./main --school --bar > worstcaseschoolbar.dat
 	########################################################## BEST CASE 
-	# beta = 0.015 delta = 0.4 nu = 0.75 (the best-case scenario) 
+	# beta = 0.01 delta = 0.4 nu = 0.75 (the best-case scenario) 
 	# no lockdown but schools and bars are shut down 
-	./main --beta=1.5 --delta=40 --nu=75 > bestcase.dat
+	./main --beta=1 --delta=40 --nu=75 > bestcase.dat
 	# everything is open (school and bar)
-	./main --beta=1.5 --delta=40 --nu=75 --school --bar > bestcaseschoolbar.dat
+	./main --beta=1 --delta=40 --nu=75 --school --bar > bestcaseschoolbar.dat
 	########################################################## SECOND CASE
 	# beta = 0.9 delta = 0.4 nu = 0.75 
 	# no lockdown but schools and bars are shut down 
