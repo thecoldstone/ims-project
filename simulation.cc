@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include "default.h"
 #include "simulation.h"
 
@@ -15,19 +16,13 @@ void Sample(){ seir.sample(); }
 Sampler Sampler(Sample, STEP);
 
 void Model::simulate() {
-    cout << "[+] Simulation...\n";
+
+    SetOutput(OUTPUTFILE);
     seir.setIntegrators(SUSCEPTIBLE, EXPOSED, INFECTED, RECOVERED);
-    if (LOCKDOWN == 1) {
-        cout << "[+] Lockdown...\n";
-    } else {
-        cout << "No Lockdown...\n";
-    }
 
     // 1 experiment
     for (int i = 0; i < 1; i++) {
-        Print("\n");
         seir.setParameters(BETA, DELTA, NU, POPULATION, LOCKDOWN, BAR, SCHOOL);
-        seir.printParameters();
         Print("# Time S E I R \n");
         Init(0, 100);
         Run();

@@ -8,6 +8,8 @@
 #ifndef _MODEL_H
 #define _MODEL_H
 
+#include <string>
+
 class Model{
     public:
         Model(); // SEIR model
@@ -39,6 +41,8 @@ class Model{
         int LOCKDOWN;
         int BAR;
         int SCHOOL;
+
+        char* OUTPUTFILE;
 };
     
 #endif

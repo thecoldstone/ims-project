@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdio.h>
-#include <string>
+#include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
 
@@ -31,7 +31,7 @@ void help() {
 int Model::parse(int argc, char **argv) {
 
     int opt, tmp;
-    static const char *sOptions = "s:e:i:r:n:lh";
+    static const char *sOptions = "s:e:i:r:n:lh:o";
     static struct option lOptions[] = {
       {"susceptible",   required_argument, 0, 's'}, // 0
       {"exposed",       required_argument, 0, 'e'}, // 1
@@ -45,10 +45,11 @@ int Model::parse(int argc, char **argv) {
       {"bar",           no_argument,       0, 9},   // 9
       {"school",        no_argument,       0, 10},   // 10
       {"help",          no_argument,       0, 'h'},
+      {"output",        required_argument, 0, 'o'},
       {0, 0, 0, 0}, // Avoid segmenation fault
     };
 
-    cout << "[+] Parse input...\n";
+    // cout << "[+] Parse input...\n";
 
     while((opt = getopt_long_only(argc, argv, sOptions, lOptions, 0)) != EOF) {
         switch(opt) {
@@ -149,6 +150,11 @@ int Model::parse(int argc, char **argv) {
             case 'h':
                 help();
                 return EXIT_FAILURE;
+            case 'o':
+                OUTPUTFILE = (char*) malloc(sizeof(char)*strlen(optarg));
+                strcpy(OUTPUTFILE, optarg);
+                break;
+                
             case '?':
                 break;
             default:
