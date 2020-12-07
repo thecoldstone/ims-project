@@ -25,13 +25,14 @@ void help() {
             "\t-n or --n, or --population INT\n" <<
             "\t-l or --l, or --lockdown\n" <<
             "\t-bar or --bar\n" <<
-            "\t-school or --school\n";
+            "\t-school or --school\n" <<
+            "\t-o or --o, or --output FILENAME\n";
 }
 
 int Model::parse(int argc, char **argv) {
 
     int opt, tmp;
-    static const char *sOptions = "s:e:i:r:n:lh:o";
+    static const char *sOptions = "s:e:i:r:n:lho:";
     static struct option lOptions[] = {
       {"susceptible",   required_argument, 0, 's'}, // 0
       {"exposed",       required_argument, 0, 'e'}, // 1
@@ -174,5 +175,4 @@ int Model::parse(int argc, char **argv) {
 // int main(int argc, char **argv) {
 //     Model model = Model();
 //     model.parse(argc, argv);
-//     model._print();
 // }
